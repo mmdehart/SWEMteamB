@@ -34,6 +34,12 @@
 		left: 10px;
 		top: 10px;
 	}
+	
+	div.bargraph{
+		position: absolute;
+		left: 100px;
+		top: 100px;
+	}
     <link rel="stylesheet" href="/styles/bootstrap.css">
     <link rel="stylesheet" href="/styles/custom.css">
     <link rel="stylesheet" href="/styles/importer.css">
@@ -46,6 +52,8 @@
 	  HashTag: <input type="text" name="HashTag" value="hashtag"><br>
 	<input type="submit" value="Submit">
 	</form>
+	
+	 <div id="chart_div" class = "bargraph" style="width: 900px; height: 500px;"></div>
     <%- body %>
 
 
@@ -101,6 +109,30 @@
 
     <!--SCRIPTS-->
     <script src="/js/dependencies/sails.io.js"></script>
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+	
+	<script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Year', 'Sales'],
+          ['2004',  1000],
+          ['2005',  1170],
+          ['2006',  660],
+          ['2007',  1030]
+        ]);
+
+        var options = {
+          title: 'Company Performance',
+          vAxis: {title: 'Year',  titleTextStyle: {color: 'red'}}
+        };
+
+        var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+
+        chart.draw(data, options);
+      }
+    </script>
     <!--SCRIPTS END-->
   </body>
 </html>
