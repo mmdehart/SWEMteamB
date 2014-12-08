@@ -29,6 +29,11 @@
     -->
 
     <!--STYLES-->
+	#inputarea{
+		position: absolute;
+		left: 10px;
+		top: 10px;
+	}
     <link rel="stylesheet" href="/styles/bootstrap.css">
     <link rel="stylesheet" href="/styles/custom.css">
     <link rel="stylesheet" href="/styles/importer.css">
@@ -36,6 +41,11 @@
   </head>
 
   <body>
+    <form id = "inputarea">
+	  Area code: <input type="text" name="Areacode" value="areacode"><br>
+	  HashTag: <input type="text" name="HashTag" value="hashtag"><br>
+	<input type="submit" value="Submit">
+	</form>
     <%- body %>
 
 
