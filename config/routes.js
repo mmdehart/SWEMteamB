@@ -31,11 +31,26 @@ module.exports.routes = {
   * `assets` directory)                                                      *
   *                                                                          *
   ***************************************************************************/
+  
+  '/' : {
+    controller : 'home'
+  },
 
-  '/': {
-    view: 'homepage'
+  '/info' : {
+    controller : 'home',
+    action : 'info'
+  },
+
+  '/login' : {
+    controller : 'auth',
+    action     : 'index'
+  },
+
+  '/logout' : {
+    controller : 'auth',
+    action     : 'logout'
   }
-
+  
   /***************************************************************************
   *                                                                          *
   * Custom routes here...                                                    *
@@ -45,5 +60,6 @@ module.exports.routes = {
   * for configuration options and examples.                                  *
   *                                                                          *
   ***************************************************************************/
+
 
 };

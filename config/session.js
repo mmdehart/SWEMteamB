@@ -72,6 +72,11 @@ module.exports.session = {
   // port: 27017,
   // db: 'sails',
   // collection: 'sessions',
+  // adapter: 'mongo',
+  // host: 'localhost',
+  // port: 27017,
+  // db: 'sails-social-auth',
+  // collection: 'sessions',
 
   /***************************************************************************
   *                                                                          *

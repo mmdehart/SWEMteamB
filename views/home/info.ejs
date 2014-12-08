@@ -1,0 +1,36 @@
+<link type="text/css" href='http://sailsjs.org/styles/fonts.css' rel='stylesheet'/>
+<script type="text/javascript">
+  setTimeout(function sunrise() {
+    document.getElementsByClassName('header')[0].style.backgroundColor = '#B0FFB8';
+  }, 0);
+</script>
+<div class="default-page">
+  <div class="header">
+   <ul class="nav nav-pills">
+      <li role="presentation"><a href="/">Home</a></li>
+      <li role="presentation" class="active"><a href="/info">View Info</a></li>
+      <li role="presentation"><a href="/logout">Logout</a></li>
+    </ul>
+  </div>
+  <div class="main container clearfix">
+
+    <div class="content">
+      <h2 id="main-title">Hi <%= user.name %>,</h1>
+
+      <p>You've successfully logged in.</p>
+      <a class="btn" href="/logout">Logout</a>
+
+      <h2>User Model</h2>
+      <table class="table">
+        <% for(key in user.toJSON() ) { if (user.hasOwnProperty(key)) { %>
+        <tr>
+          <td><%= key %>:</td>
+          <td class="boxy"><%= user[key] %></td>
+        </tr>
+        <% }} %>
+      </table>
+
+    </div>
+    
+  </div>
+</div>

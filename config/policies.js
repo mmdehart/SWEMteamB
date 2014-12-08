@@ -19,6 +19,11 @@
 
 module.exports.policies = {
 
+    '*': 'sessionAuth',
+
+  'auth': {
+    '*': true
+  }
   /***************************************************************************
   *                                                                          *
   * Default policy for all controllers and actions (`true` allows public     *
