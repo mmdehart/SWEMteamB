@@ -3,6 +3,17 @@
 <!--<link type="text/css" href='http://sailsjs.org/styles/fonts.css' rel='stylesheet'/>
 <style type="text/css">
       html, body, #map-canvas { height: 100%; margin: 0; padding: 0;}
+	#inputarea{
+		position: absolute;
+		left: 10px;
+		top: 10px;
+	}
+	
+	div.bargraph{
+		position: absolute;
+		left: 100px;
+		top: 100px;
+	}
 </style>
 -->
 <!--
@@ -30,6 +41,8 @@
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCku-O2DiUbln3NhDToN_LbsUMNM8nKqfg">
 </script>
 
+
+
 <script type="text/javascript">
     function initialize() {
        var mapOptions = {
@@ -41,6 +54,33 @@
     }
     google.maps.event.addDomListener(window, 'load', initialize);
 </script>
+
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+	
+	<script type="text/javascript">
+	  function AreaTags(){
+        google.load("visualization", "1", {packages:["corechart"]});
+        google.setOnLoadCallback(drawChart);
+        function drawChart() {
+          var data = google.visualization.arrayToDataTable([
+            ['Year', 'Sales'],
+            ['2004',  1000],
+            ['2005',  1170],
+            ['2006',  660],
+            ['2007',  1030]
+          ]);
+
+          var options = {
+            title: 'Company Performance',
+            vAxis: {title: 'Year',  titleTextStyle: {color: 'red'}}
+          };
+
+          var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+
+          chart.draw(data, options);
+        }
+	  }
+    </script>
 
 <link type="text/css" href='http://sailsjs.org/styles/fonts.css' rel='stylesheet'/>
 <script type="text/javascript">
@@ -66,6 +106,14 @@
   </div>
 </div>
 <div id="map-canvas"></div>
+
+ <form id = "inputarea">
+	  Area code: <input type="text" name="Areacode" value="areacode"><br>
+	  HashTag: <input type="text" name="HashTag" value="hashtag"><br>
+	<input type="submit" value="Submit">
+	</form>
+	
+	 <div id="chart_div" class = "bargraph" style="width: 900px; height: 500px;"></div>
 
 
 
