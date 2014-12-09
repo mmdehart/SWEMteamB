@@ -55,29 +55,67 @@
     google.maps.event.addDomListener(window, 'load', initialize);
 </script>
 
-<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+ <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script type="text/javascript">
       google.load("visualization", "1", {packages:["corechart"]});
       google.setOnLoadCallback(drawChart);
+        
+      var chart;
+      var data;
+      var options;
+      
       function drawChart() {
-        var graphdata = [
-          ['tweet', 'number'],
-          ['MIZZOU',  1000],
-          ['finalsweek',  1170],
-          ['capstone',  660]
-        ]
-        var data = google.visualization.arrayToDataTable(graphdata);
+        dataTable = google.visualization.arrayToDataTable([
+          ['Year', 'Sales'],
+          ['2004',  1000],
+          ['2005',  1170],
+          ['2006',  660],
+          ['2007',  1030]
+        ]);
 
-        var options = {
-          title: 'tweets for the zip code: 65202',
-          vAxis: {title: 'tweet',  titleTextStyle: {color: 'red'}}
+        options = {
+          title: 'tweet(s) for the area code: ',
+          hAxis: {title: 'tweet(s)', titleTextStyle: {color: 'red'}}
         };
 
-        var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
-
-        chart.draw(data, options);
+        chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+        chart.draw(dataTable, options);
       }
- </script>
+        
+      // function to update the chart with new data.
+      function updateChart() {
+       
+          dataTable = new google.visualization.DataTable();
+          
+          var newData = [['tweets', 'Number'],
+            ['MIZZOU',  1000],
+            ['finals',  1170],
+            ['capstone',  660]];
+        
+          // determine the number of rows and columns.
+          var numRows = newData.length;
+          var numCols = newData[0].length;
+        
+          // in this case the first column is of type 'string'.
+          dataTable.addColumn('string', newData[0][0]);
+        
+          // all other columns are of type 'number'.
+          for (var i = 1; i < numCols; i++)
+            dataTable.addColumn('number', newData[0][i]);           
+        
+          // now add the rows.
+          for (var i = 1; i < numRows; i++) 
+            dataTable.addRow(newData[i]);            
+
+          // redraw the chart.
+          chart.draw(dataTable, options);        
+      
+          //makes the chart visible
+          var showme = document.getElementById("chart_div");
+          showme.style.visibility = "visible";
+      }
+      
+    </script>
 
 <link type="text/css" href='http://sailsjs.org/styles/fonts.css' rel='stylesheet'/>
 <script type="text/javascript">
@@ -88,17 +126,18 @@
 
 <style type="text/css">
       html, body, #map-canvas { height: 100%; margin: 0; padding: 0;}
-form {
-    position: absolute;
-    left: 400px;
-    top: 00px;
-}
+ #inputarea {
+          position: absolute;
+          left: 400px;
+          top: 00px;
+      }
 
-div.bargraph{
-		position: absolute;
-		left: 100px;
-		top: 100px;
-	} 
+      div.bargraph{
+              position: absolute;
+              left: 100px;
+              top: 100px;
+              visibility: hidden;
+          } 
 </style>
 
 
@@ -116,11 +155,11 @@ div.bargraph{
 </div>
 <div id="map-canvas"></div>
 
- <form id = "inputarea">
-	  Zip code: <input type="text" name="Areacode" value="areacode"><br>
-	  HashTag: <input type="text" name="HashTag" value="hashtag"><br>
-	<input type="submit" value="Submit">
-</form>
+ <div id="inputarea">
+	  Zip code: <input type="text" name="Areacode"><br>
+	  HashTag: <input type="text" name="HashTag"><br>
+	 <button onclick='updateChart();'>update chart</button>
+   </div>
 	
 <div id="chart_div" class = "bargraph" style="width: 900px; height: 500px;"></div>
 
