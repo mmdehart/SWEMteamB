@@ -82,15 +82,27 @@
         chart.draw(dataTable, options);
       }
         
+      function calledFunction(){
+        var zip;
+        
+        if(document.getElementById('AreaCode').value == '')
+          zip = 0;
+        else
+          zip = document.getElementById('AreaCode').value;
+        
+        var hashtag = document.getElementById('HashTag').value;
+        
+        var num = getData(zip, hashtag);
+        
+        updateChart(num, hashtag);
+      }
       // function to update the chart with new data.
-      function updateChart() {
+      function updateChart(num, hash) {
        
           dataTable = new google.visualization.DataTable();
           
-          var newData = [['tweets', 'Number'],
-            ['MIZZOU',  1000],
-            ['finals',  1170],
-            ['capstone',  660]];
+          var newData = [['tweet', 'Number'],
+            [hash,  num]];
         
           // determine the number of rows and columns.
           var numRows = newData.length;
@@ -114,6 +126,7 @@
           var showme = document.getElementById("chart_div");
           showme.style.visibility = "visible";
       }
+     
       
     </script>
 
@@ -158,7 +171,7 @@
  <div id="inputarea">
 	  Zip code: <input type="text" name="Areacode"><br>
 	  HashTag: <input type="text" name="HashTag"><br>
-	 <button onclick='updateChart();'>update chart</button>
+	  <button onclick='calledFunction();'>update chart</button>
    </div>
 	
 <div id="chart_div" class = "bargraph" style="width: 900px; height: 500px;"></div>
