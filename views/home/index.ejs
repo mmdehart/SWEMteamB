@@ -115,31 +115,17 @@
           showme.style.visibility = "visible";
       }
       
+
     </script>
 
-<link type="text/css" href='http://sailsjs.org/styles/fonts.css' rel='stylesheet'/>
 <script type="text/javascript">
   setTimeout(function sunrise() {
     document.getElementsByClassName('header')[0].style.backgroundColor = '#B0FFB8';
   }, 0);
+
+
+
 </script>
-
-<style type="text/css">
-      html, body, #map-canvas { height: 100%; margin: 0; padding: 0;}
- #inputarea {
-          position: absolute;
-          left: 400px;
-          top: 00px;
-      }
-
-      div.bargraph{
-              position: absolute;
-              left: 100px;
-              top: 100px;
-              visibility: hidden;
-          } 
-</style>
-
 
 
 
@@ -150,16 +136,27 @@
       <li role="presentation" class="active"><a href="/">Home</a></li>
       <li role="presentation"><a href="/info">View Info</a></li>
       <li role="presentation"><a href="/logout">Logout</a></li>
+      <li class="pull-right"><form role="search">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="HashTag">
+      </li>
+      <li class="pull-right">
+          <input type="text" class="form-control" id="zipcode" placeholder="Zip Code">
+        </div>
+      </li>
+      <li><button type="submit" class="btn btn-default">Submit</button></li>
+      </form>
     </ul>
+
   </div>
 </div>
 <div id="map-canvas"></div>
 
- <div id="inputarea">
+<!--  <div id="inputarea">
 	  Zip code: <input type="text" name="Areacode"><br>
 	  HashTag: <input type="text" name="HashTag"><br>
 	 <button onclick='updateChart();'>update chart</button>
-   </div>
+   </div> -->
 	
 <div id="chart_div" class = "bargraph" style="width: 900px; height: 500px;"></div>
 

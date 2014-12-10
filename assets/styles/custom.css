@@ -4,3 +4,23 @@
   line-height: 1.33;
   border-radius: 6px;
 }
+
+html, body, #map-canvas { 
+	height: 100%; 
+	margin: 0; 
+	padding: 0;
+}
+
+
+#inputarea {
+   position: absolute;
+   left: 400px;
+   top: 00px;
+}
+
+div.bargraph{
+   position: absolute;
+   left: 100px;
+   top: 100px;
+   visibility: hidden;
+} 
