@@ -21,7 +21,7 @@ module.exports = {
       user: req.user
     });
 
-  }
+  },
 
 
   getdatawithzip: function(req, res) {
@@ -67,7 +67,10 @@ module.exports = {
     
 
       T.get('search/tweets', { q: hashtag+' '+geocode, count: 100 }, function(err, data, response) {
-        res.send(data);
+        console.log(data);
+        res.alert(data.statuses.length);
+        res.send(data.statuses.length);
+
       })
     });
   }
