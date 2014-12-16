@@ -6,16 +6,19 @@
 }
 
 html, body, #map-canvas { 
-	height: 100%; 
+	height: 97%; 
 	margin: 0; 
 	padding: 0;
 }
 
+.header {
+  background-color: #47007D;
+}
 
 #inputarea {
-   position: absolute;
+   /*position: absolute;*/
    left: 400px;
-   top: 00px;
+   padding: 15px;
 }
 
 div.bargraph{

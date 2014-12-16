@@ -1,41 +1,4 @@
 
-<!-- Default home page -->
-<!--<link type="text/css" href='http://sailsjs.org/styles/fonts.css' rel='stylesheet'/>
-<style type="text/css">
-      html, body, #map-canvas { height: 100%; margin: 0; padding: 0;}
-	#inputarea{
-		position: absolute;
-		left: 10px;
-		top: 10px;
-	}
-	
-	div.bargraph{
-		position: absolute;
-		left: 100px;
-		top: 100px;
-	}
-</style>
--->
-<!--
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCku-O2DiUbln3NhDToN_LbsUMNM8nKqfg">
-</script>
--->
-<!-- <script type="text/javascript">
-//    function initialize() {
-//       var mapOptions = {
-//          center: { lat: 38.951, lng: -92.340},
-//          zoom: 8
-//       };
-//       var map = new google.maps.Map(document.getElementById('map-canvas'),
-//          mapOptions);
-//    }
-//    google.maps.event.addDomListener(window, 'load', initialize);
-// </script>-->
-
-
-<!-- <div id="map-canvas"></div> -->
-
-
 
 <!-- Default home page -->
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCku-O2DiUbln3NhDToN_LbsUMNM8nKqfg">
@@ -67,17 +30,17 @@
       // var http = require('http');
       
       function drawChart() {
-        dataTable = google.visualization.arrayToDataTable([
-          ['Year', 'Sales'],
-          ['2004',  1000],
-          ['2005',  1170],
-          ['2006',  660],
-          ['2007',  1030]
-        ]);
+        // dataTable = google.visualization.arrayToDataTable([
+        //   ['Year', 'Sales'],
+        //   ['2004',  1000],
+        //   ['2005',  1170],
+        //   ['2006',  660],
+        //   ['2007',  1030]
+        // ]);
 
         options = {
-          title: 'tweet(s) for the area code: ',
-          hAxis: {title: 'tweet(s)', titleTextStyle: {color: 'red'}}
+          title: 'Tweets in the zip code: ',
+          hAxis: {title: 'Tweet Count', titleTextStyle: {color: 'purple'}}
         };
 
         chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
@@ -87,50 +50,31 @@
       function calledFunction(){
         var zip;
         
-        if(document.getElementById('AreaCode').value == '')
+        if(document.getElementById('zipcode').value == '')
           zip = 0;
         else
-          zip = document.getElementById('AreaCode').value;
+          zip = document.getElementById('zipcode').value;
         
-        var hashtag = document.getElementById('HashTag').value;
+        var hashtag = document.getElementById('hashtag').value;
         
-        // var options = {
-        //   host: 'localhost:1337',
-        //   path: '/getdatawithzip?hashtag='+hashtag+'&zipcode='+zip
-        // };
-        // http.request(options, callback).end();
-        
-        updateChart(5, hashtag);
-
-
+        io.socket.post("/home/getdatawithzip", {
+          zipcode:zip,
+          hashtag:hashtag
+        }, function(thing, info) {
+          console.log(thing)
+          updateChart(thing.length, hashtag);
+        })
 
       }
 
-      // $(document).ready( function() {
-      //       $.ajax({
-      //         url:'http://localhost:1337/getdatawithzip?hashtag=banana&zipcode=63026',
-      //         dataType:'json',
-      //         type: "GET",
-      //         jsonp : "callback",
-      //         contentType: "application/json",
-      //         success: function(data){
-      //             console.log(data);
-      //             updateChart(data, hashtag);
-      //         },
-      //         error: function(data){
-      //             console.log(data.getResponseHeader());
-      //         }
-      //     }).done(function( data ) {
-      //         console.log(data);
-      //     });
-      //   });
+
 
       // function to update the chart with new data.
       function updateChart(num, hash) {
        
           dataTable = new google.visualization.DataTable();
           
-          var newData = [['tweet', 'Number'],
+          var newData = [['Tweet', 'Count'],
             [hash,  num]];
         
           // determine the number of rows and columns.
@@ -173,50 +117,32 @@
 
     </script>
 
-<script type="text/javascript">
-  setTimeout(function sunrise() {
-    document.getElementsByClassName('header')[0].style.backgroundColor = '#B0FFB8';
-  }, 0);
 
-
-
-</script>
 
 
 
 <div class="default-page">
   <div class="header">
-    <!-- <h3 class="container">You're looking at: <code><%= view.pathFromApp + '.' + view.ext %></code></h3> -->
-    <ul class="nav nav-pills">
-      <li role="presentation" class="active"><a href="/">Home</a></li>
-      <li role="presentation"><a href="/info">View Info</a></li>
-      <li role="presentation"><a href="/logout">Logout</a></li>
-      <li class="pull-right">
-       <!--  <form role="search">
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="HashTag">
-      </li>
-      <li class="pull-right">
-          <input type="text" class="form-control" id="zipcode" placeholder="Zip Code">
-        </div>
-      </li>
-      <li><button type="submit" class="btn btn-default">Submit</button></li>
-      </form> -->
-    </ul>
 
+    <div id="inputarea" >
+      <div class="row">
+        <div class="col-md-2">
+          <input class="form-control" type="text" name="hashtag" id="hashtag" placeholder="Hash Tag">
+        </div>
+        <div class="col-md-2">
+          <input class="form-control" type="text" name="zipcode" id="zipcode" placeholder="Zip Code">
+        </div>
+        <div class="col-md-2">
+          <button class="btn btn-default" onclick='calledFunction();'>Update Chart</button>
+        </div>
+      </div>
+   </div>
+  </div>
   </div>
 </div>
 <div id="map-canvas"></div>
 
- <div id="inputarea">
-	  Zip code: <input type="text" name="AreaCode" id="AreaCode"><br>
-	  HashTag: <input type="text" name="HashTag" id="HashTag"><br>
-	 <!-- <button onclick='updateChart();'>update chart</button> -->
-   
-	  <button onclick='calledFunction();'>update chart</button>
-   </div>
-	</div>
-<div id="chart_div" class = "bargraph" style="width: 900px; height: 500px;"></div>
+<div id="chart_div" class = "bargraph" style="width: 500px; height: 500px;"></div>
 
 
 
