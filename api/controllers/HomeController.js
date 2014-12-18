@@ -28,7 +28,9 @@ getdatawithzip: function(req, res) {
     var zipcode = req.param("zipcode");
     var radius = '10';
     var radiusinmiles = radius+'mi';
-    var hashtag = 'banana';
+    var hashtag = req.param("hashtag");
+    console.log(zipcode);
+    console.log(hashtag);
     if(zipcode == 0){
       //res.send(results);
       var Twit = require('twit')
